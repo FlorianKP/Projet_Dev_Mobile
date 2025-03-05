@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <!-- Nom du résident -->
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="8dp"/>
+
+    <!-- Nombre d'équipements -->
+    <TextView
+        android:id="@+id/tvNbEquipements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#666"
+        android:layout_below="@id/tvName"
+        android:layout_alignStart="@id/tvName"
+        android:layout_marginTop="4dp"/>
+    <!-- Conteneur des icônes -->
+    <LinearLayout
+        android:id="@+id/iconContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/tvNbEquipements"
+        android:layout_below="@+id/tvName"
+        android:layout_marginStart="6dp"
+        android:orientation="horizontal">
+
+        <!-- Icône 1 -->
+        <ImageView
+            android:id="@+id/icon1"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="4dp"/>
+
+        <!-- Icône 2 -->
+        <ImageView
+            android:id="@+id/icon2"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="4dp"/>
+
+        <!-- Icône 3 -->
+        <ImageView
+            android:id="@+id/icon3"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="4dp"/>
+    </LinearLayout>
+
+    <!-- Indicateur d'étage -->
+    <TextView
+        android:id="@+id/tvFloor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:padding="4dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>

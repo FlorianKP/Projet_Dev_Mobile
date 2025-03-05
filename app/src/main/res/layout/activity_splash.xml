@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white"
+    android:id="@+id/splash">
+
+    <ImageView
+        android:id="@+id/logoPowerHome"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:src="@drawable/power_home_logo"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"/>
+
+    <TextView
+        android:id="@+id/poweredByText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Powered by Florian Kop"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:paddingBottom="20dp"/>
+</LinearLayout>

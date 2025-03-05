@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#000000"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:weightSum="1"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Bouton retour -->
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_weight="0"/>
+
+        <!-- Texte "Connectez-vous" -->
+        <TextView
+            android:id="@+id/text_connect"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Connectez-vous"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="20dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Identifiez-vous"
+        android:textSize="22sp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="start"
+        android:textColor="@color/grey"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_mail_outline_24" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_lock_open_24" />
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mot de passe"
+        android:inputType="textPassword"
+        />
+    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MOT DE PASSE OUBLIÉ ?"
+        android:background="@android:color/transparent"
+        android:textSize="18sp"
+        android:padding="0dp"
+        android:textColor="@color/blue"
+        android:layout_gravity="end"
+        android:onClick="clickForgottenPassWord"
+        />
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CONNECTEZ-VOUS"
+        android:backgroundTint="@color/orange"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp"
+        android:padding="15dp"
+        android:onClick="clickLogin"
+        style="@style/Widget.MaterialComponents.Button"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nouveau sur PowerHome?"
+            android:textColor="@color/grey"
+            android:textSize="16sp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CRÉER UN COMPTE"
+            android:background="@android:color/transparent"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            android:padding="0dp"
+            android:layout_marginLeft="10dp"
+            android:onClick="clickNewAccount"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <!-- Ligne gauche -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="#D3D3D3"/>
+
+        <!-- Texte "OU" -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OU"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="#A0A0A0"
+            android:textSize="14sp"/>
+
+        <!-- Ligne droite -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="#D3D3D3"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/facebook_logo"
+            />
+        <Button
+            android:id="@+id/btnFacebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continuer avec Facebook"
+            android:background="@android:color/transparent"
+            android:textColor="@color/blue"
+            android:padding="0dp"
+            android:onClick="clickFacebook"
+            />
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>
+
