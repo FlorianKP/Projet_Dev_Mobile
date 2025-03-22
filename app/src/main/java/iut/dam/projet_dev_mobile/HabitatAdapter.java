@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import iut.dam.projet_dev_mobile.entities.Habitat;
+
 public class HabitatAdapter extends ArrayAdapter<Habitat> {
     Activity activity;
     int itemResourceId;
@@ -27,6 +29,8 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
         this.itemResourceId = itemResourceId;
         this.items = items;
     }
+
+
 
     @NonNull
     @Override

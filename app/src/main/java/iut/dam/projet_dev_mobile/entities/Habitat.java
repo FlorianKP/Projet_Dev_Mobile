@@ -37,4 +37,15 @@ public class Habitat {
         List<Habitat> list = gson.fromJson(json, type);
         return list;
     }
+
+    public boolean hasAppliance(String appliance){
+        for (Appliance a:appliances){
+            if(a.name.equals(appliance)) return true;
+        }
+        return false;
+    }
+
+    public void addAppliance(Appliance appliance){
+        appliances.add(appliance);
+    }
 }

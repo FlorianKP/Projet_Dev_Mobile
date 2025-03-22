@@ -12,6 +12,9 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 import java.util.List;
 
+import iut.dam.projet_dev_mobile.entities.Appliance;
+import iut.dam.projet_dev_mobile.entities.Habitat;
+
 public class HabitatActivity extends AppCompatActivity {
 
     @Override
@@ -32,10 +35,10 @@ public class HabitatActivity extends AppCompatActivity {
         Appliance ap2 = new Appliance(2,"machine à laver", "1234",80);
         Appliance ap3 = new Appliance(3,"aspirateur", "12345",50);
         Appliance ap4 = new Appliance(3,"fer à repasser", "123456",30);
-        Habitat h1 = new Habitat(1, "Gaëtan Leclair",1);
-        Habitat h3 = new Habitat(2, "Gaylord Thibodeaux",4);
-        Habitat h2 = new Habitat(3, "Cédric Boudet",2);
-        Habitat h4 = new Habitat(4, "Adam Jacquinot",1);
+        Habitat h1 = new Habitat(1, 10,1);
+        Habitat h3 = new Habitat(2, 10,4);
+        Habitat h2 = new Habitat(3, 10,2);
+        Habitat h4 = new Habitat(4, 10,1);
         h1.addAppliance(ap1);
         h1.addAppliance(ap4);
         h2.addAppliance(ap1);
