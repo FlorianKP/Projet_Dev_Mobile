@@ -90,4 +90,5 @@ public class HabitatActivity extends AppCompatActivity {
         HabitatAdapter adapter = new HabitatAdapter(this, R.layout.item_habitat, habitats);
         listView.setAdapter(adapter);
     }
+
 }

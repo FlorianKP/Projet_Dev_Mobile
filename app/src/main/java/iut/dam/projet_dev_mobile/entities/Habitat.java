@@ -27,6 +27,7 @@ public class Habitat {
         this.user = user ;
     }
 
+
     public static Habitat getFromJson(String json){
         Gson gson = new Gson();
         Habitat obj = gson.fromJson(json, Habitat.class);

@@ -1,6 +1,7 @@
 package iut.dam.projet_dev_mobile;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
         this.activity = activity;
         this.itemResourceId = itemResourceId;
         this.items = items;
+        Log.d("DEBUG_ADAPTER", "Nombre d'éléments dans l'adapter: " + items.size());
     }
 
 
@@ -40,13 +42,17 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
             LayoutInflater inflater = activity.getLayoutInflater();
             layout = inflater.inflate(itemResourceId, parent, false);
         }
+        Log.d("DEBUG_LISTVIEW", "Affichage de l'élément position: " + position);
+        if (items == null || items.isEmpty()) {
+            System.out.println("Aucune donnée reçue pour Habitat !");
+            return layout; // Retourne la vue vide
+        }
         TextView nameTV =  layout.findViewById(R.id.tvName);
         TextView nbEquipTV = layout.findViewById(R.id.tvNbEquipements);
         TextView floorTV = layout.findViewById(R.id.tvFloor);
         ImageView icon1 = layout.findViewById(R.id.icon1);
         ImageView icon2 = layout.findViewById(R.id.icon2);
         ImageView icon3 = layout.findViewById(R.id.icon3);
-        nameTV.setText(items.get(position).user.firstName);
         String nbEquipements = items.get(position).appliances.size()+" équipement" + (items.get(position).appliances.size()<2?"":"s");
         nbEquipTV.setText(nbEquipements);
         String floor =  "Étage " +String.valueOf(items.get(position).floor) ;
