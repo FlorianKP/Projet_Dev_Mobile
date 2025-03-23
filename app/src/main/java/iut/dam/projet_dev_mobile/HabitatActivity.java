@@ -1,7 +1,9 @@
 package iut.dam.projet_dev_mobile;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,20 +11,34 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.ArrayList;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.List;
 
-import iut.dam.projet_dev_mobile.entities.Appliance;
 import iut.dam.projet_dev_mobile.entities.Habitat;
 
 public class HabitatActivity extends AppCompatActivity {
+
+    private static final String SERVER_URL = "http://192.168.238.219/powerhome_server/getHabitats.php";
+    private ListView listView;
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_list);
-        setTextView();
+
+        // 🔹 INITIALISATION de listView AVANT d’appeler fetchHabitatsFromServer()
+        listView = findViewById(R.id.listView);
+
+        fetchHabitatsFromServer(); // Appel pour récupérer les habitats
+
+        // Gérer les Insets pour éviter que l'interface ne soit coupée par les barres système
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -30,39 +46,48 @@ public class HabitatActivity extends AppCompatActivity {
         });
     }
 
-    private List<Habitat> setPeople() {
-        Appliance ap1 = new Appliance(1,"machine à laver", "123",80);
-        Appliance ap2 = new Appliance(2,"machine à laver", "1234",80);
-        Appliance ap3 = new Appliance(3,"aspirateur", "12345",50);
-        Appliance ap4 = new Appliance(3,"fer à repasser", "123456",30);
-        Habitat h1 = new Habitat(1, 10,1);
-        Habitat h3 = new Habitat(2, 10,4);
-        Habitat h2 = new Habitat(3, 10,2);
-        Habitat h4 = new Habitat(4, 10,1);
-        h1.addAppliance(ap1);
-        h1.addAppliance(ap4);
-        h2.addAppliance(ap1);
-        h2.addAppliance(ap3);
-        h2.addAppliance(ap4);
-        h4.addAppliance(ap3);
-        List<Habitat> habitats = new ArrayList<>();
-        habitats.add(h1);
-        habitats.add(h2);
-        habitats.add(h3);
-        habitats.add(h4);
-        return habitats;
-}
-private void setTextView() {
-        ListView tv=  findViewById(R.id.textview);
-        List<Habitat> habitats = setPeople();
+    private void fetchHabitatsFromServer() {
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Chargement des habitats...");
+        pDialog.setIndeterminate(true);
+        pDialog.setCancelable(false);
+        pDialog.show();
 
-        HabitatAdapter adapter =
-                new HabitatAdapter(this,
-                        R.layout.item_habitat,
-                        habitats);
-        tv.setAdapter(adapter);
+        Ion.with(this)
+                .load(SERVER_URL)
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        pDialog.dismiss();
+                        if (e != null) {
+                            Toast.makeText(HabitatActivity.this, "Erreur de connexion", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        List<Habitat> habitats = parseJsonToHabitats(result);
+                        if (habitats != null) {
+                            displayHabitats(habitats);
+                        } else {
+                            Toast.makeText(HabitatActivity.this, "Erreur de parsing JSON", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
+    private List<Habitat> parseJsonToHabitats(String json) {
+        try {
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<Habitat>>() {}.getType();
+            return gson.fromJson(json, listType);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-
+    private void displayHabitats(List<Habitat> habitats) {
+        HabitatAdapter adapter = new HabitatAdapter(this, R.layout.item_habitat, habitats);
+        listView.setAdapter(adapter);
+    }
 }

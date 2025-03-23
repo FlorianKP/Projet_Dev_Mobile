@@ -46,11 +46,12 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
         ImageView icon1 = layout.findViewById(R.id.icon1);
         ImageView icon2 = layout.findViewById(R.id.icon2);
         ImageView icon3 = layout.findViewById(R.id.icon3);
-        nameTV.setText(items.get(position).residentName);
+        nameTV.setText(items.get(position).user.firstName);
         String nbEquipements = items.get(position).appliances.size()+" équipement" + (items.get(position).appliances.size()<2?"":"s");
         nbEquipTV.setText(nbEquipements);
         String floor =  "Étage " +String.valueOf(items.get(position).floor) ;
         floorTV.setText(floor);
+
 
         // Liste des équipements possédés
         List<Integer> equipIcons = new ArrayList<>();
