@@ -113,27 +113,6 @@
             android:inputType="textPassword"
             />
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="15dp">
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/appel_telephonique" />
-        <Spinner
-            android:id="@+id/spinner_phone"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"/>
-        <EditText
-            android:id="@+id/etPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/mobile"
-            android:inputType="textPassword"
-            />
-    </LinearLayout>
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
