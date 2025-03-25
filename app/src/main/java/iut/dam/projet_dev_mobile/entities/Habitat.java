@@ -1,5 +1,7 @@
 package iut.dam.projet_dev_mobile.entities;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -37,8 +39,17 @@ public class Habitat {
         Gson gson = new Gson();
         Type type = new TypeToken<List<Habitat>>(){}.getType();
         List<Habitat> list = gson.fromJson(json, type);
+
+        for (Habitat h : list) {
+            if (h.user != null) {
+                Log.d("DEBUG_JSON", "Habitat ID: " + h.id + " - Utilisateur: " + h.user.firstName + " " + h.user.lastName);
+            } else {
+                Log.d("DEBUG_JSON", "Habitat ID: " + h.id + " - Aucun utilisateur chargé !");
+            }
+        }
         return list;
     }
+
 
     public boolean hasAppliance(String appliance){
         for (Appliance a:appliances){
