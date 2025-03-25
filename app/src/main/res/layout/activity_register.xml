@@ -27,7 +27,9 @@
             android:layout_marginEnd="16dp"
             android:src="@drawable/baseline_arrow_back_24"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:layout_weight="0"/>
+            android:layout_weight="0"
+            android:onClick="clickHaveAccount"
+            />
 
         <!-- Texte "Connectez-vous" -->
         <TextView
@@ -135,7 +137,17 @@
         android:onClick="clickRegister"
         style="@style/Widget.MaterialComponents.Button"
         android:backgroundTint="@color/eco_green_dark"/>
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Déjà un compte ?"
+        android:background="@android:color/transparent"
+        android:textColor="@color/eco_green_dark"
+        android:textSize="16sp"
+        android:padding="0dp"
+        android:layout_marginLeft="10dp"
+        android:onClick="clickHaveAccount"
+        />
 
 </LinearLayout>
 

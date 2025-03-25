@@ -126,7 +126,10 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
-
+    public void clickHaveAccount(View view) {
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
 
     private void UpdateUI() {
         Intent intent = new Intent(this, LoginActivity.class);
