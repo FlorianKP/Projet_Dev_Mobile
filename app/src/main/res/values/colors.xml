@@ -5,4 +5,8 @@
     <color name="blue">#0062bf</color>
     <color name="orange">#F68C1E</color>
     <color name="grey">#929292</color>
+    <color name="eco_green_light">#E8F5E9</color>  <!-- Vert très clair -->
+    <color name="eco_green_medium">#81C784</color> <!-- Vert moyen -->
+    <color name="eco_green_dark">#2E7D32</color>   <!-- Vert foncé -->
+    <color name="eco_beige">#F5F5DC</color>        <!-- Beige naturel -->
 </resources>

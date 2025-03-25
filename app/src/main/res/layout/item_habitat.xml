@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="#000"
+        android:textColor="@color/eco_green_dark"
         android:layout_alignParentStart="true"
         android:layout_marginEnd="8dp"/>
 
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:textColor="#666"
+        android:textColor="@color/eco_green_medium"
         android:layout_below="@id/tvName"
         android:layout_alignStart="@id/tvName"
         android:layout_marginTop="4dp"/>

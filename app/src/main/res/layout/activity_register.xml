@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/eco_green_light"
     tools:context=".RegisterActivity">
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#000000"
+        android:background="@color/eco_green_dark"
         android:orientation="horizontal"
         android:padding="16dp"
         android:gravity="center_vertical"
@@ -34,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/cr_er_un_compte"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/eco_beige"
             android:textSize="18sp"
             android:layout_weight="1"
             />
@@ -51,7 +52,7 @@
         android:text="@string/cr_er_un_nouveau_compte"
         android:textSize="22sp"
         android:layout_marginBottom="20dp"
-        android:textColor="@color/grey"
+        android:textColor="@color/eco_green_dark"
 
         />
     <LinearLayout
@@ -62,12 +63,16 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_account_circle_24" />
+            android:src="@drawable/baseline_account_circle_24"
+            app:tint="@color/eco_green_dark"
+            />
         <EditText
             android:id="@+id/etNom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nom"
+            android:textColor="@color/eco_green_dark"
+            android:textColorHint="@color/eco_green_medium"
             android:inputType="textEmailAddress"/>
     </LinearLayout>
     <EditText
@@ -75,6 +80,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/prenom"
+        android:textColor="@color/eco_green_dark"
+        android:textColorHint="@color/eco_green_medium"
         android:inputType="textEmailAddress"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="15dp"
@@ -87,6 +94,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tint="@color/eco_green_dark"
             android:src="@drawable/baseline_mail_outline_24" />
 
         <EditText
@@ -94,6 +102,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
+            android:textColor="@color/eco_green_dark"
+            android:textColorHint="@color/eco_green_medium"
             android:inputType="textEmailAddress"/>
     </LinearLayout>
     <LinearLayout
@@ -104,12 +114,15 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tint="@color/eco_green_dark"
             android:src="@drawable/baseline_lock_open_24" />
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/mot_de_passe"
+            android:textColor="@color/eco_green_dark"
+            android:textColorHint="@color/eco_green_medium"
             android:inputType="textPassword"
             />
     </LinearLayout>
@@ -121,7 +134,7 @@
         android:layout_marginTop="20dp"
         android:onClick="clickRegister"
         style="@style/Widget.MaterialComponents.Button"
-        android:backgroundTint="@color/orange"/>
+        android:backgroundTint="@color/eco_green_dark"/>
 
 
 </LinearLayout>

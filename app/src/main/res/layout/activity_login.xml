@@ -6,14 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/eco_green_light"
     tools:context=".LoginActivity">
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#000000"
         android:orientation="horizontal"
         android:padding="16dp"
+        android:background="@color/eco_green_dark"
         android:gravity="center_vertical"
         android:weightSum="1"
         app:layout_constraintTop_toTopOf="parent">
@@ -34,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Connectez-vous"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/eco_beige"
             android:textSize="18sp"
             android:layout_weight="1"
             />
@@ -53,7 +54,7 @@
         android:textSize="22sp"
         android:layout_marginBottom="20dp"
         android:layout_gravity="start"
-        android:textColor="@color/grey"
+        android:textColor="@color/eco_green_dark"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,13 +63,18 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_mail_outline_24" />
+            android:src="@drawable/baseline_mail_outline_24"
+            app:tint="@color/eco_green_dark"
+            />
+
 
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:textColor="@color/eco_green_dark"
+            android:textColorHint="@color/eco_green_medium"
             android:inputType="textEmailAddress"/>
     </LinearLayout>
     <LinearLayout
@@ -79,12 +85,16 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_lock_open_24" />
+            android:src="@drawable/baseline_lock_open_24"
+            app:tint="@color/eco_green_dark"
+            />
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Mot de passe"
+        android:textColor="@color/eco_green_dark"
+        android:textColorHint="@color/eco_green_medium"
         android:inputType="textPassword"
         />
     </LinearLayout>
@@ -95,7 +105,7 @@
         android:background="@android:color/transparent"
         android:textSize="18sp"
         android:padding="0dp"
-        android:textColor="@color/blue"
+        android:textColor="@color/eco_green_dark"
         android:layout_gravity="end"
         android:onClick="clickForgottenPassWord"
         />
@@ -104,7 +114,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="CONNECTEZ-VOUS"
-        android:backgroundTint="@color/orange"
+        android:textColor="@color/eco_beige"
+        android:backgroundTint="@color/eco_green_dark"
         android:layout_marginTop="20dp"
         android:textSize="15sp"
         android:padding="15dp"
@@ -118,14 +129,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nouveau sur PowerHome?"
-            android:textColor="@color/grey"
+            android:textColor="@color/eco_green_medium"
             android:textSize="16sp"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CRÉER UN COMPTE"
             android:background="@android:color/transparent"
-            android:textColor="@color/blue"
+            android:textColor="@color/eco_green_dark"
             android:textSize="16sp"
             android:padding="0dp"
             android:layout_marginLeft="10dp"
@@ -146,7 +157,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="#D3D3D3"/>
+            android:background="@color/eco_green_medium"/>
 
         <!-- Texte "OU" -->
         <TextView
@@ -155,7 +166,7 @@
             android:text="OU"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:textColor="#A0A0A0"
+            android:textColor="@color/eco_green_medium"
             android:textSize="14sp"/>
 
         <!-- Ligne droite -->
@@ -163,7 +174,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="#D3D3D3"/>
+            android:background="@color/eco_green_medium"/>
     </LinearLayout>
 
     <LinearLayout
