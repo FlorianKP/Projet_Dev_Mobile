@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         pDialog.setIndeterminate(true);
         pDialog.setCancelable(false);
         pDialog.show();
-        String urlString = "http://192.168.1.22/powerhome_server/getHabitats.php";
+        String urlString = "http://192.168.1.48/powerhome_server/getHabitats.php";
         Ion.with(this)
                 .load(urlString)
                 .asString()
