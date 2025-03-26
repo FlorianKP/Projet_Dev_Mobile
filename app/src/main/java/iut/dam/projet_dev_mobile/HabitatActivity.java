@@ -27,7 +27,7 @@ import iut.dam.projet_dev_mobile.entities.Habitat;
 
 public class HabitatActivity extends AppCompatActivity {
 
-    private static final String SERVER_URL = "http://192.168.1.140/powerhome/getHabitats_v3.php";
+    private static final String SERVER_URL = "http://192.168.1.22/powerhome/getHabitats_v3.php";
     private ListView listView;
     private ProgressDialog pDialog;
 
