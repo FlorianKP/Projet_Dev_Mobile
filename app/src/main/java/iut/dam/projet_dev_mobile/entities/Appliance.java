@@ -1,9 +1,10 @@
 package iut.dam.projet_dev_mobile.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Appliance {
+public class Appliance implements Serializable {
 
     public int id;
     public String name;

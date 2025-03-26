@@ -56,6 +56,26 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="4dp"/>
+        <!-- Icône 4 -->
+        <ImageView
+            android:id="@+id/icon4"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="4dp"/>
+
+        <!-- Icône 5 -->
+        <ImageView
+            android:id="@+id/icon5"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="4dp"/>
+
+        <!-- Icône 6 -->
+        <ImageView
+            android:id="@+id/icon6"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="4dp"/>
     </LinearLayout>
 
     <!-- Indicateur d'étage -->

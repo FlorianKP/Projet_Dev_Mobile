@@ -13,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import iut.dam.projet_dev_mobile.entities.Appliance;
 import iut.dam.projet_dev_mobile.entities.Habitat;
@@ -56,6 +58,9 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
         ImageView icon1 = layout.findViewById(R.id.icon1);
         ImageView icon2 = layout.findViewById(R.id.icon2);
         ImageView icon3 = layout.findViewById(R.id.icon3);
+        ImageView icon4 = layout.findViewById(R.id.icon4);
+        ImageView icon5 = layout.findViewById(R.id.icon5);
+        ImageView icon6 = layout.findViewById(R.id.icon6);
 
 
         Habitat habitat = items.get(position);
@@ -90,7 +95,7 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
         Log.d("DEBUG_LISTVIEW", "Résident: " + userName);
 
 
-
+        /*
         // 🔹 Gestion des icônes d'équipements
         List<Integer> equipIcons = new ArrayList<>();
         icon1.setImageDrawable(null);
@@ -128,8 +133,47 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
             icon3.setImageResource(equipIcons.get(2));
             icon3.setVisibility(View.VISIBLE);
         }
+*/
+        Map<String, Integer> drawableMap = new HashMap<>();
+        drawableMap.put("Aspirateur", R.drawable.aspirateur);
+        drawableMap.put("Machine_a_laver", R.drawable.machine_a_laver);
+        drawableMap.put("Fer_a_repasser", R.drawable.fer_a_repasser);
+
+        ImageView[] imageViews = {icon1, icon2, icon3, icon4, icon5, icon6}; // Référence tes ImageView ici
+
+        displayAppliancesIcons(habitat, imageViews, drawableMap);
 
 
         return layout;
     }
+
+    public void displayAppliancesIcons(Habitat habitat, ImageView[] imageViews, Map<String, Integer> drawableMap) {
+        List<Integer> iconsToShow = new ArrayList<>();
+
+        // Liste des appareils à vérifier
+        String[] applianceNames = {"Aspirateur", "Machine_a_laver", "Fer_a_repasser"};
+
+        // Remplir la liste des icônes à afficher
+        for (String appliance : applianceNames) {
+            int count = habitat.howManyAppliances(appliance);
+            for (int i = 0; i < count; i++) {
+                if (iconsToShow.size() < imageViews.length) { // Max 6 icônes
+                    iconsToShow.add(drawableMap.get(appliance));
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // Afficher les icônes dans les ImageView
+        for (int i = 0; i < imageViews.length; i++) {
+            if (i < iconsToShow.size()) {
+                imageViews[i].setImageResource(iconsToShow.get(i));
+                imageViews[i].setVisibility(View.VISIBLE);
+            } else {
+                imageViews[i].setVisibility(View.INVISIBLE); // Cacher les ImageView inutilisées
+            }
+        }
+    }
+
 }

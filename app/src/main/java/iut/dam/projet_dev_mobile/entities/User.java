@@ -2,9 +2,10 @@ package iut.dam.projet_dev_mobile.entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
 
     public int id;
     @SerializedName("firstname")

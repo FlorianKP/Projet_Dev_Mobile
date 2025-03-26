@@ -1,7 +1,11 @@
 package iut.dam.projet_dev_mobile;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,6 +39,16 @@ public class HabitatActivity extends AppCompatActivity {
 
         // 🔹 INITIALISATION de listView AVANT d’appeler fetchHabitatsFromServer()
         listView = findViewById(R.id.listView);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Habitat selectedHabitat = (Habitat) parent.getItemAtPosition(position);
+                Intent intent = new Intent(HabitatActivity.this, HabitatDetailActivity.class);
+                intent.putExtra("habitat", selectedHabitat);
+                startActivity(intent);
+            }
+        });
+
 
         fetchHabitatsFromServer(); // Appel pour récupérer les habitats
 

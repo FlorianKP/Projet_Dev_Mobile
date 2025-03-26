@@ -5,11 +5,12 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Habitat {
+public class Habitat implements Serializable {
 
     public int id;
     public int floor;
@@ -50,6 +51,14 @@ public class Habitat {
         return list;
     }
 
+    public int howManyAppliances(String appliance){
+        int nb=0;
+        for (Appliance a:appliances){
+            if(a.name.equals(appliance)) ++nb;
+        }
+        Log.d("HABITAT", "nb appliances : " + nb);
+        return nb;
+    }
 
     public boolean hasAppliance(String appliance){
         for (Appliance a:appliances){
