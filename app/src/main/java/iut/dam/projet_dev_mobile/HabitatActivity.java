@@ -47,6 +47,8 @@ public class HabitatActivity extends AppCompatActivity {
                 Intent intent = new Intent(HabitatActivity.this, HabitatDetailActivity.class);
                 intent.putExtra("habitat", selectedHabitat);
                 startActivity(intent);
+                // Ajout de l'animation de transition
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -89,6 +91,13 @@ public class HabitatActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
 
     private List<Habitat> parseJsonToHabitats(String json) {
         try {

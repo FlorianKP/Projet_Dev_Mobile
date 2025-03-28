@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String LOGIN_URL = "http://192.168.1.22/powerhome/login.php";
+    private static final String LOGIN_URL = "http://192.168.1.48/powerhome/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
