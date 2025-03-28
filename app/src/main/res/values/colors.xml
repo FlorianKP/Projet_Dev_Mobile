@@ -10,4 +10,5 @@
     <color name="eco_green_dark">#2E7D32</color>   <!-- Vert foncé -->
     <color name="eco_beige">#F5F5DC</color>        <!-- Beige naturel -->
     <color name="green">#1EA624</color>
+    <color name="green_light">#a3daa5</color>
 </resources>

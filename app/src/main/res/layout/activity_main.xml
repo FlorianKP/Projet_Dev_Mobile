@@ -1,66 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/eco_green_light"
     tools:context=".MainActivity">
 
-    <!-- Bandeau vert en haut -->
-    <View
+    <LinearLayout
         android:id="@+id/header"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:background="#4CAF50"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Texte principal -->
-    <TextView
-        android:id="@+id/mainText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Message"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/linkHabitat" />
-
-    <!-- Lien vers HabitatActivity -->
-
-    <!-- Lien vers CalendrierActivity -->
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/eco_green_dark"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:weightSum="1"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Accueil"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/linkHabitat"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:text="Accéder aux habitats"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="@drawable/btn_rounded"
         android:clickable="true"
         android:focusable="true"
-        android:text="Accéder aux Habitats"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.441"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mainText" />
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/linkCalendrier"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:text="Accéder au calendrier"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="@drawable/btn_rounded"
         android:clickable="true"
         android:focusable="true"
-        android:text="Accéder au Calendrier"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.452"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linkHabitat" />
+        android:layout_margin="8dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</LinearLayout>

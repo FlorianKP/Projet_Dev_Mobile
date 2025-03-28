@@ -1,7 +1,9 @@
 package iut.dam.projet_dev_mobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +22,7 @@ import iut.dam.projet_dev_mobile.entities.Appliance;
 import iut.dam.projet_dev_mobile.entities.Habitat;
 
 public class HabitatDetailActivity extends AppCompatActivity {
-    private static final String SERVER_URL = "http://192.168.1.48/powerhome/getTotalWattage.php";
+    private static final String SERVER_URL = "http://192.168.1.22/powerhome/getTotalWattage.php";
     private Habitat habitat;
 
     @Override
@@ -84,5 +86,9 @@ public class HabitatDetailActivity extends AppCompatActivity {
                         Log.e("JSON Parse Error", "Erreur de parsing JSON");
                     }
                 });
+    }
+    public void clickRetour(View view) {
+        Intent intent = new Intent(HabitatDetailActivity.this, HabitatActivity.class);
+        startActivity(intent);
     }
 }

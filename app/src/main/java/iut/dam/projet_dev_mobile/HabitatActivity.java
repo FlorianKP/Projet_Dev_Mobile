@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +32,7 @@ import iut.dam.projet_dev_mobile.entities.Habitat;
 
 public class HabitatActivity extends AppCompatActivity {
 
-    private static final String SERVER_URL = "http://192.168.1.48/powerhome/getHabitats_v3.php";
+    private static final String SERVER_URL = "http://192.168.1.22/powerhome/getHabitats_v3.php";
     private ListView listView;
     private ProgressDialog pDialog;
 
@@ -74,7 +75,7 @@ public class HabitatActivity extends AppCompatActivity {
             }
         });
 
-        TextView btnRetourMain = findViewById(R.id.btnRetourMain);
+        ImageButton btnRetourMain = findViewById(R.id.btnRetourMain);
         btnRetourMain.setOnClickListener(v -> {
             Intent intent = new Intent(HabitatActivity.this, MainActivity.class);
             startActivity(intent);

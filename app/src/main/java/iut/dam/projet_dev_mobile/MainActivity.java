@@ -20,7 +20,7 @@ import com.koushikdutta.ion.Ion;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "server";
-    private static final String SERVER_URL = "http://192.168.1.48/powerhome_server/getHabitats.php";
+    private static final String SERVER_URL = "http://192.168.1.22/powerhome_server/getHabitats.php";
     private ProgressDialog pDialog;
 
     @SuppressLint("SetTextI18n")
@@ -28,14 +28,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Initialisation UI
+        TextView linkHabitat = findViewById(R.id.linkHabitat);
+        TextView linkCalendrier = findViewById(R.id.linkCalendrier);
+        /*
         setupUI();
 
         // Récupération des données du serveur
-        getRemoteHabitats();
+        getRemoteHabitats();*/
+        // Redirection vers HabitatActivity
+        linkHabitat.setOnClickListener(v -> {
+            Intent habitatIntent = new Intent(MainActivity.this, HabitatActivity.class);
+            startActivity(habitatIntent);
+        });
 
-        // Gestion des insets pour éviter que l'interface ne soit coupée
+        // Redirection vers CalendrierActivity
+        linkCalendrier.setOnClickListener(v -> {
+            Intent calendrierIntent = new Intent(MainActivity.this, CalendrierActivity.class);
+            startActivity(calendrierIntent);
+        });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -44,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 🔹 Méthode pour gérer les actions UI (textes et liens)
+    /*
     private void setupUI() {
         TextView mainText = findViewById(R.id.mainText);
         TextView linkHabitat = findViewById(R.id.linkHabitat);
@@ -97,4 +108,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+    */
 }
