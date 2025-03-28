@@ -5,10 +5,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,24 +19,23 @@ import com.koushikdutta.ion.Ion;
 
 public class MainActivity extends AppCompatActivity {
 
-    String TAG = "server";
-    String urlString = "http://[192.168.238.219]/powerhome_server/getHabitats.php";
+    private static final String TAG = "server";
+    private static final String SERVER_URL = "http://192.168.1.48/powerhome_server/getHabitats.php";
+    private ProgressDialog pDialog;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        // Initialisation UI
+        setupUI();
+
+        // Récupération des données du serveur
         getRemoteHabitats();
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        if(bundle!=null) {
-            String firstname = bundle.getString("firstname");
-            String password = bundle.getString("password");
-            String msg = "Bonjour " + firstname + "! Votre mot de passe est " + password + " !";
-            TextView textView = findViewById(R.id.mainText);
-            textView.setText(msg);
-        }
+
+        // Gestion des insets pour éviter que l'interface ne soit coupée
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -44,29 +43,58 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    ProgressDialog pDialog;
-    public void getRemoteHabitats() {
+    // 🔹 Méthode pour gérer les actions UI (textes et liens)
+    private void setupUI() {
+        TextView mainText = findViewById(R.id.mainText);
+        TextView linkHabitat = findViewById(R.id.linkHabitat);
+        TextView linkCalendrier = findViewById(R.id.linkCalendrier);
+
+        // Récupération des données passées depuis l'autre activité
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            String firstname = bundle.getString("firstname");
+            String password = bundle.getString("password");
+            mainText.setText("Bonjour " + firstname + "! Votre mot de passe est " + password + " !");
+        }
+
+        // Redirection vers HabitatActivity
+        linkHabitat.setOnClickListener(v -> {
+            Intent habitatIntent = new Intent(MainActivity.this, HabitatActivity.class);
+            startActivity(habitatIntent);
+        });
+
+        // Redirection vers CalendrierActivity
+        linkCalendrier.setOnClickListener(v -> {
+            Intent calendrierIntent = new Intent(MainActivity.this, CalendrierActivity.class);
+            startActivity(calendrierIntent);
+        });
+    }
+
+    // 🔹 Récupération des habitats depuis le serveur
+    private void getRemoteHabitats() {
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Getting list of habitats...");
+        pDialog.setMessage("Chargement des habitats...");
         pDialog.setIndeterminate(true);
         pDialog.setCancelable(false);
         pDialog.show();
-        String urlString = "http://192.168.1.48/powerhome_server/getHabitats.php";
+
         Ion.with(this)
-                .load(urlString)
+                .load(SERVER_URL)
                 .asString()
                 .setCallback(new FutureCallback<String>() {
                     @Override
                     public void onCompleted(Exception e, String result) {
                         pDialog.dismiss();
-                        if (result == null)
-                            Log.d(TAG, "No response from the server!!!");
-                        else {
-                            Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+                        if (e != null) {
+                            Log.d(TAG, "Erreur de connexion au serveur !");
+                            Toast.makeText(MainActivity.this, "Erreur de connexion", Toast.LENGTH_SHORT).show();
+                            return;
                         }
+
+                        Log.d(TAG, "Réponse serveur : " + result);
+                        Toast.makeText(MainActivity.this, "Données reçues : " + result, Toast.LENGTH_SHORT).show();
                     }
-                    // Traitement de result
                 });
     }
-
 }

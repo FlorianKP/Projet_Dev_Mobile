@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -73,6 +74,12 @@ public class HabitatActivity extends AppCompatActivity {
             }
         });
 
+        TextView btnRetourMain = findViewById(R.id.btnRetourMain);
+        btnRetourMain.setOnClickListener(v -> {
+            Intent intent = new Intent(HabitatActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         fetchHabitatsFromServer(); // Appel pour récupérer les habitats
 
@@ -83,6 +90,7 @@ public class HabitatActivity extends AppCompatActivity {
             return insets;
         });
     }
+
 
     private void fetchHabitatsFromServer() {
         pDialog = new ProgressDialog(this);
