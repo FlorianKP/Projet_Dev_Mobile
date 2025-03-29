@@ -3,10 +3,15 @@ package iut.dam.projet_dev_mobile;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -43,13 +48,39 @@ public class HabitatActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Habitat selectedHabitat = (Habitat) parent.getItemAtPosition(position);
-                Intent intent = new Intent(HabitatActivity.this, HabitatDetailActivity.class);
-                intent.putExtra("habitat", selectedHabitat);
-                startActivity(intent);
+                // Animation de pression initiale
+                Animation press = AnimationUtils.loadAnimation(HabitatActivity.this, R.anim.bounce);
+                view.startAnimation(press);
+
+                // Animation de rebond après un court délai
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Animation bounce = AnimationUtils.loadAnimation(HabitatActivity.this, R.anim.bounce);
+                        view.startAnimation(bounce);
+
+                        // Transition après l'animation
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Habitat selectedHabitat = (Habitat) parent.getItemAtPosition(position);
+                                Intent intent = new Intent(HabitatActivity.this, HabitatDetailActivity.class);
+                                intent.putExtra("habitat", selectedHabitat);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            }
+                        }, 300);
+                    }
+                }, 100);
             }
         });
 
+        ImageButton btnRetourMain = findViewById(R.id.btnRetourMain);
+        btnRetourMain.setOnClickListener(v -> {
+            Intent intent = new Intent(HabitatActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         fetchHabitatsFromServer(); // Appel pour récupérer les habitats
 
@@ -60,6 +91,7 @@ public class HabitatActivity extends AppCompatActivity {
             return insets;
         });
     }
+
 
     private void fetchHabitatsFromServer() {
         pDialog = new ProgressDialog(this);
@@ -89,6 +121,13 @@ public class HabitatActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
 
     private List<Habitat> parseJsonToHabitats(String json) {
         try {

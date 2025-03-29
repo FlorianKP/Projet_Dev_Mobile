@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Effet lorsqu'on appuie sur le bouton -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/green_light"/>
+            <corners android:radius="12dp"/>
+        </shape>
+    </item>
+
+    <!-- État normal du bouton -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/eco_green_medium"/>
+            <corners android:radius="12dp"/>
+        </shape>
+    </item>
+</selector>
