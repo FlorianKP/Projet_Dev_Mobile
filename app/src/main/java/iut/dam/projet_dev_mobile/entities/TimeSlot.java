@@ -10,6 +10,7 @@ public class TimeSlot {
     public Date begin;
     public Date end;
     public int maxWattage;
+    private int availableWattage;
     public List<Booking> bookings;
 
     public TimeSlot() {
@@ -22,5 +23,21 @@ public class TimeSlot {
         this.end = end;
         this.maxWattage = maxWattage;
         bookings = new ArrayList<>();
+        this.availableWattage = maxWattage;
+    }
+    public int getAvailableWattage() {
+        return this.availableWattage;
+    }
+
+    public void setAvailableWattage(int availableWattage) {
+        this.availableWattage = availableWattage;
+    }
+
+    // Méthode pour calculer la puissance disponible
+    public void calculateAvailableWattage() {
+        int usedWattage = bookings.stream()
+                .mapToInt(b -> b.getAppliance().getWattage())
+                .sum();
+        this.availableWattage = maxWattage - usedWattage;
     }
 }

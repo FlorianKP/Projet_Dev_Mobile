@@ -24,4 +24,11 @@ public class Appliance implements Serializable {
         this.wattage = wattage;
         bookings = new ArrayList<>();
     }
+    public int getWattage() {
+        return wattage;
+    }
+
+    public void setWattage(int wattage) {
+        this.wattage = wattage;
+    }
 }

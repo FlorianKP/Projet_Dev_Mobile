@@ -23,7 +23,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 public class RegisterActivity extends AppCompatActivity {
-    private static final String LOGIN_URL = "http://192.168.1.22/powerhome/register.php";
+    private static final String LOGIN_URL = "http://10.0.2.20/powerhome/register.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

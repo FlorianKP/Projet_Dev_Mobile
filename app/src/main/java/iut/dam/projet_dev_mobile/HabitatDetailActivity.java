@@ -22,7 +22,7 @@ import iut.dam.projet_dev_mobile.entities.Appliance;
 import iut.dam.projet_dev_mobile.entities.Habitat;
 
 public class HabitatDetailActivity extends AppCompatActivity {
-    private static final String SERVER_URL = "http://192.168.1.22/powerhome/getTotalWattage.php";
+    private static final String SERVER_URL = "http://10.0.2.2/powerhome/getTotalWattage.php";
     private Habitat habitat;
 
     @Override
