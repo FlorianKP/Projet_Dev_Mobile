@@ -11,6 +11,7 @@ public class TimeSlot {
     public Date end;
     public int maxWattage;
     private int availableWattage;
+    public float consumptionPercentage;
     public List<Booking> bookings;
 
     public TimeSlot() {
@@ -24,6 +25,7 @@ public class TimeSlot {
         this.maxWattage = maxWattage;
         bookings = new ArrayList<>();
         this.availableWattage = maxWattage;
+        this.consumptionPercentage=-1;
     }
     public int getAvailableWattage() {
         return this.availableWattage;

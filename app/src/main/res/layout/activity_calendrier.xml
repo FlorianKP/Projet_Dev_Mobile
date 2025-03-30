@@ -36,9 +36,62 @@
             android:layout_weight="1"
             />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <!-- Date centrée en haut -->
+        <TextView
+            android:id="@+id/tvSelectedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingBottom="12dp"
+            android:gravity="center"/>
+
+        <!-- Conteneur des boutons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- Bouton précédent -->
+            <Button
+                android:id="@+id/btnPrevious"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="◀ Jour précédent"
+                android:backgroundTint="@color/eco_green_dark"
+                android:textSize="16sp"
+                android:padding="12dp" />
+
+            <!-- Bouton suivant -->
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Jour suivant ▶"
+                android:backgroundTint="@color/eco_green_dark"
+                android:textSize="16sp"
+                android:padding="12dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent"
+        android:padding="10dp" />
 </LinearLayout>

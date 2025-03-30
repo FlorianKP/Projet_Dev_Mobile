@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ReservationActivity">
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/eco_green_dark"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:weightSum="1"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            android:id="@+id/btnRetourMain"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_weight="0"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Calendrier"
+            android:textColor="@color/eco_beige"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Réserver un appareil"
+        android:textSize="18sp"
+        android:textColor="@color/eco_green_dark"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/idAppareil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Id de l'appareil"
+        android:textColorHint="@color/eco_green_medium"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnValider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Valider"
+        android:backgroundTint="@color/eco_green_dark"
+        android:textColor="@color/eco_beige"/>
+    </LinearLayout>
+
+</LinearLayout>

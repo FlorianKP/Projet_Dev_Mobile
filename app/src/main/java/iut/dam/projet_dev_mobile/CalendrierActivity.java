@@ -3,6 +3,7 @@ package iut.dam.projet_dev_mobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.JsonObject;
 import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.IonContext;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,12 +35,14 @@ import java.util.Random;
 
 import iut.dam.projet_dev_mobile.entities.TimeSlot;
 
-public class CalendrierActivity extends AppCompatActivity implements TimeSlotAdapter.OnTimeSlotClickListener{
-
+public class CalendrierActivity extends AppCompatActivity implements TimeSlotAdapter.OnTimeSlotClickListener {
     private RecyclerView recyclerView;
     private TimeSlotAdapter adapter;
     private List<TimeSlot> timeSlotList = new ArrayList<>();
-    private static final String URL_TIMESLOTS = "http://10.0.2.2/powerhome/get_timeslots.php";
+    private TextView tvSelectedDate;
+    private Button btnPrevious, btnNext;
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    private Calendar calendar = Calendar.getInstance(); // Stocke la date sélectionnée
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,114 +51,160 @@ public class CalendrierActivity extends AppCompatActivity implements TimeSlotAda
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         adapter = new TimeSlotAdapter(timeSlotList, this);
         recyclerView.setAdapter(adapter);
 
-        fetchTimeSlots();
-        Log.d("DEBUG", "Nombre de créneaux récupérés: " + timeSlotList.size());
+        tvSelectedDate = findViewById(R.id.tvSelectedDate);
+        btnPrevious = findViewById(R.id.btnPrevious);
+        btnNext = findViewById(R.id.btnNext);
+        ImageButton btnRetourMain = findViewById(R.id.btnRetourMain);
+        btnRetourMain.setOnClickListener(v -> {
+            Intent intent = new Intent(CalendrierActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        );
 
+        updateDateDisplay(); // Affiche la date initiale
+        fetchTimeSlots(); // Charge les créneaux du jour
+
+        // Gestion du bouton "Jour précédent"
+        btnPrevious.setOnClickListener(v -> {
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            updateDateDisplay();
+            fetchTimeSlots();
+            fetchTimeSlotConsumption();
+        });
+
+        // Gestion du bouton "Jour suivant"
+        btnNext.setOnClickListener(v -> {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            updateDateDisplay();
+            fetchTimeSlots();
+            fetchTimeSlotConsumption();
+        });
+        adapter.notifyDataSetChanged();
+
+        fetchTimeSlotConsumption();
     }
 
-    private void fetchTimeSlots() {
-        Log.d("DEBUG", "Lancement de la requête vers l'API...");
+    private void fetchTimeSlotConsumption() {
+        String url = "http://10.0.2.2/powerhome/getPercentageWattage.php";
 
         Ion.with(this)
-                .load("GET", URL_TIMESLOTS)
-                .asString()
+                .load(url)
+                .asJsonArray()
                 .setCallback((e, result) -> {
                     if (e != null) {
-                        Log.e("ERROR", "Erreur de connexion : " + e.getMessage(), e);
-                        Toast.makeText(this, "Erreur de connexion", Toast.LENGTH_LONG).show();
+                        Log.e("ERROR","Erreur de connexion");
                         return;
                     }
-
                     try {
-                        JSONArray jsonArray = new JSONArray(result);
-                        List<TimeSlot> fetchedSlots = new ArrayList<>();
+                        for (int i = 0; i < result.size(); i++) {
+                            JsonObject jsonSlot = result.get(i).getAsJsonObject();
 
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject obj = jsonArray.getJSONObject(i);
-                            int id = obj.getInt("id");
-                            Date begin = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(obj.getString("begin"));
-                            Date end = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(obj.getString("end"));
-                            int maxWattage = obj.getInt("max_wattage");
+                            int slotId = jsonSlot.get("time_slot_id").getAsInt();
+                            float consumptionPercentage = jsonSlot.get("consumption_percentage").getAsFloat();
 
-                            fetchedSlots.add(new TimeSlot(id, begin, end, maxWattage));
-                        }
-                        Log.d("DEBUG", "Créneaux récupérés depuis la BD :");
-                        for (TimeSlot slot : fetchedSlots) {
-                            Log.d("DEBUG", "ID: " + slot.id + " | " +
-                                    new SimpleDateFormat("HH:mm").format(slot.begin) + " - " +
-                                    new SimpleDateFormat("HH:mm").format(slot.end) +
-                                    " | maxWattage: " + slot.maxWattage);
+                            Log.d("TimeSlot", "ID: " + slotId + " | %: " + consumptionPercentage);
+
+                            // Mettre à jour la liste des créneaux
+                            updateTimeSlot(slotId, consumptionPercentage);
                         }
 
+                        //  Rafraîchir la liste après toutes les mises à jour
 
-                        // Maintenant, on génère la liste complète des créneaux
-                        generateCompleteTimeSlots(fetchedSlots);
 
-                    } catch (JSONException | ParseException ex) {
-                        Log.e("ERROR", "Erreur lors du parsing JSON : " + ex.getMessage(), ex);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
                     }
                 });
     }
 
-    private void generateCompleteTimeSlots(List<TimeSlot> fetchedSlots) {
-        List<TimeSlot> completeTimeSlots = new ArrayList<>();
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 8); // Début à 08h00
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-
-        Calendar endCalendar = Calendar.getInstance();
-        endCalendar.set(Calendar.HOUR_OF_DAY, 21); // Fin à 21h00
-        endCalendar.set(Calendar.MINUTE, 0);
-        endCalendar.set(Calendar.SECOND, 0);
-
-        while (calendar.before(endCalendar)) {
-            Date startTime = calendar.getTime();
-            calendar.add(Calendar.HOUR_OF_DAY, 1);
-            Date endTime = calendar.getTime();
-
-            boolean isReservable = false;
-            TimeSlot reservableSlot = null;
-
-            for (TimeSlot slot : fetchedSlots) {
-                // Comparer en utilisant getTime() pour éviter les problèmes de millisecondes
-                if (slot.begin.getTime() == startTime.getTime() && slot.end.getTime() == endTime.getTime()) {
-                    isReservable = true;
-                    reservableSlot = slot;
-                    break;
-                }
-            }
-
-            if (isReservable) {
-                completeTimeSlots.add(reservableSlot); // Ajoute le créneau récupéré
-            } else {
-                completeTimeSlots.add(new TimeSlot(0, startTime, endTime, -1)); // Créneau non réservable
-            }
-        }
-
-        // Mise à jour de l'affichage
-        timeSlotList.clear();
-        timeSlotList.addAll(completeTimeSlots);
-        Log.d("DEBUG", "Créneaux ajoutés dans la liste affichée :");
+    public void updateTimeSlot(int slotId, float consumptionPercentage) {
         for (TimeSlot slot : timeSlotList) {
-            Log.d("DEBUG", new SimpleDateFormat("HH:mm").format(slot.begin) + " - " +
-                    new SimpleDateFormat("HH:mm").format(slot.end) +
-                    " | maxWattage: " + slot.maxWattage);
+            if (slot.id == slotId) {
+                slot.consumptionPercentage = consumptionPercentage;
+                break;
+            }
         }
-
         adapter.notifyDataSetChanged();
+    }
+
+    // Met à jour l'affichage de la date
+    private void updateDateDisplay() {
+        tvSelectedDate.setText(sdf.format(calendar.getTime()));
+    }
+
+    private void fetchTimeSlots() {
+        String selectedDate = sdf.format(calendar.getTime());
+        String url = "http://10.0.2.2/powerhome/get_timeslots.php?date=" + selectedDate;
+
+        Ion.with(this)
+                .load(url)
+                .asJsonArray()
+                .setCallback((e, result) -> {
+                    if (e != null) {
+                        Toast.makeText(this, "Erreur de connexion", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Création de la liste complète des créneaux de 8h à 22h
+                    timeSlotList.clear();
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(Calendar.HOUR_OF_DAY, 8);
+                    cal.set(Calendar.MINUTE, 0);
+
+                    List<TimeSlot> availableSlots = new ArrayList<>();
+
+                    for (int i = 8; i < 22; i++) { // Créneaux de 8h à 22h
+                        Date begin = cal.getTime();
+                        cal.add(Calendar.HOUR_OF_DAY, 1);
+                        Date end = cal.getTime();
+                        timeSlotList.add(new TimeSlot(-1, begin, end, 0)); // Créneaux non réservables
+                    }
+
+                    // Marquer les créneaux disponibles en BD comme "réservables"
+                    for (int i = 0; i < result.size(); i++) {
+                        JsonObject obj = result.get(i).getAsJsonObject();
+                        try {
+                            int id = obj.get("id").getAsInt();
+                            String beginStr = obj.get("begin").getAsString();
+                            String endStr = obj.get("end").getAsString();
+                            int maxWattage = obj.get("max_wattage").getAsInt();
+
+                            Date begin = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(beginStr);
+                            Date end = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endStr);
+
+                            // Comparer les heures et les minutes des créneaux
+                            for (int j = 0; j < timeSlotList.size(); j++) {
+                                TimeSlot slot = timeSlotList.get(j);
+                                // Comparaison des heures et des minutes
+                                if (slot.begin.getHours() == begin.getHours() && slot.begin.getMinutes() == begin.getMinutes()) {
+                                    // Remplacer le créneau non réservable par celui de la BD
+                                    timeSlotList.set(j, new TimeSlot(id, begin, end, maxWattage));
+                                }
+                            }
+
+                        } catch (ParseException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+
+                    adapter.notifyDataSetChanged();
+
+                    fetchTimeSlotConsumption();
+                });
     }
 
 
 
     @Override
     public void onTimeSlotClick(TimeSlot timeSlot) {
-        Log.d("DEBUG", "Créneau sélectionné : " + timeSlot.begin + " - " + timeSlot.end);
+        Toast.makeText(this, "Créneau sélectionné : " + timeSlot.begin + " - " + timeSlot.end, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(CalendrierActivity.this, ReservationActivity.class);
+        intent.putExtra("time_slot_id", String.valueOf(timeSlot.id));
+        startActivity(intent);
     }
-
 }

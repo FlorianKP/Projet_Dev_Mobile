@@ -93,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                 "lastname=" + lastname + ", firstname=" + firstname + ", email=" + email + ", password=" + password);
 
         Ion.with(this)
-                .load("POST", LOGIN_URL)  // Assure-toi que c'est bien POST
+                .load("POST", LOGIN_URL)
                 .setBodyParameter("lastname", lastname)
                 .setBodyParameter("firstname", firstname)
                 .setBodyParameter("email", email)

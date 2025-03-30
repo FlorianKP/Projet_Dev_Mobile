@@ -7,58 +7,70 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.IonContext;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
 import iut.dam.projet_dev_mobile.entities.TimeSlot;
 
-public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.ViewHolder> {
+public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSlotViewHolder> {
 
     private List<TimeSlot> timeSlotList;
-    private Context context;
     private OnTimeSlotClickListener listener;
 
-    public interface OnTimeSlotClickListener {
-        void onTimeSlotClick(TimeSlot timeSlot);
-    }
-
-    public TimeSlotAdapter(List<TimeSlot> timeSlotList, Context context) {
+    private final String url= "http://10.0.2.2/powerhome/getPercentageWattage.php";
+    public TimeSlotAdapter(List<TimeSlot> timeSlotList, OnTimeSlotClickListener listener) {
         this.timeSlotList = timeSlotList;
-        this.context = context;
-        if (context instanceof OnTimeSlotClickListener) {
-            this.listener = (OnTimeSlotClickListener) context;
-        }
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TimeSlotViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_time_slot, parent, false);
-        return new ViewHolder(view);
+        return new TimeSlotViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TimeSlot timeSlot = timeSlotList.get(position);
+    public void onBindViewHolder(@NonNull TimeSlotViewHolder holder, int position) {
+        TimeSlot slot = timeSlotList.get(position);
+        SimpleDateFormat sdfHour = new SimpleDateFormat("HH:mm");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        String timeText = sdf.format(timeSlot.begin) + " - " + sdf.format(timeSlot.end);
-        holder.timeTextView.setText(timeText);
+        holder.timeTextView.setText(sdfHour.format(slot.begin) + " - " + sdfHour.format(slot.end));
 
-        if (timeSlot.maxWattage == -1) { // Créneau non réservable
+        if (slot.id == -1) {
             holder.itemView.setBackgroundColor(Color.LTGRAY);
-            holder.itemView.setClickable(false);
-            holder.itemView.setOnClickListener(null); // Désactive le clic
-            Log.d("DEBUG", "Créneau désactivé : " + timeText);
-        } else { // Créneau réservable
-            holder.itemView.setBackgroundColor(Color.WHITE);
-            holder.itemView.setClickable(true);
+            holder.itemView.setEnabled(false);
+        } else {
+            // Définir la couleur en fonction de la consommation
+            int color;
+            if (slot.consumptionPercentage <= 30) {
+                color = Color.GREEN;
+            } else if (slot.consumptionPercentage <= 70) {
+                color = Color.rgb(255, 165, 0); // Orange
+            } else {
+                color = Color.RED;
+            }
+
+            holder.itemView.setBackgroundColor(color);
+            holder.itemView.setEnabled(true);
+
             holder.itemView.setOnClickListener(v -> {
-                Log.d("DEBUG", "Créneau cliqué dans Adapter : " + timeText);
-                listener.onTimeSlotClick(timeSlot);
+                if (listener != null) {
+                    listener.onTimeSlotClick(slot);
+                }
             });
         }
     }
@@ -67,18 +79,28 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.ViewHo
 
 
 
-        @Override
+
+
+
+    @Override
     public int getItemCount() {
         return timeSlotList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    // ✅ **Ajoute cette classe interne pour résoudre l’erreur**
+    public static class TimeSlotViewHolder extends RecyclerView.ViewHolder {
         TextView timeTextView;
 
-        public ViewHolder(@NonNull View itemView) {
+        public TimeSlotViewHolder(@NonNull View itemView) {
             super(itemView);
             timeTextView = itemView.findViewById(R.id.timeTextView);
         }
     }
+
+    // ✅ **Ajoute aussi cette interface pour gérer le clic**
+    public interface OnTimeSlotClickListener {
+        void onTimeSlotClick(TimeSlot timeSlot);
+    }
 }
+
 
