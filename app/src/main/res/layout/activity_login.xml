@@ -8,189 +8,235 @@
     android:orientation="vertical"
     android:background="@color/eco_green_light"
     tools:context=".LoginActivity">
-    <LinearLayout
-        android:id="@+id/header"
+
+    <!-- Arrière-plan avec cercles -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:orientation="horizontal"
+        android:layout_height="match_parent">
 
-        android:background="@color/eco_green_dark"
-        android:gravity="center_vertical"
-        android:weightSum="1"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <!-- Texte "Connectez-vous" -->
-        <TextView
-            android:id="@+id/text_connect"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Connexion"
-            android:textColor="@color/eco_beige"
-            android:textSize="18sp"
-            android:layout_marginStart="22dp"
-            android:layout_weight="1"
-            />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_margin="20dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Identifiez-vous"
-        android:textSize="22sp"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="start"
-        android:textColor="@color/eco_green_dark"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+        <!-- Cercles en arrière-plan -->
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_mail_outline_24"
-            app:tint="@color/eco_green_dark"
-            />
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="-50dp"
+            android:src="@drawable/circle_shape_1"
+            android:alpha="0.2"/>
 
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginEnd="-100dp"
+            android:layout_gravity="end"
+            android:src="@drawable/circle_shape_2"
+            android:alpha="0.2"/>
 
-        <EditText
-            android:id="@+id/etEmail"
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="500dp"
+            android:layout_marginStart="50dp"
+            android:src="@drawable/circle_shape_3"
+            android:alpha="0.2"/>
+
+        <!-- Contenu principal -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:textColor="@color/eco_green_dark"
-            android:textColorHint="@color/eco_green_medium"
-            android:inputType="textEmailAddress"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="20dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_lock_open_24"
-            app:tint="@color/eco_green_dark"
-            />
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Mot de passe"
-        android:textColor="@color/eco_green_dark"
-        android:textColorHint="@color/eco_green_medium"
-        android:inputType="textPassword"
-        />
-    </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MOT DE PASSE OUBLIÉ ?"
-        android:background="@android:color/transparent"
-        android:textSize="18sp"
-        android:padding="0dp"
-        android:textColor="@color/eco_green_dark"
-        android:layout_gravity="end"
-        android:onClick="clickForgottenPassWord"
-        />
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CONNECTEZ-VOUS"
-        android:textColor="@color/eco_beige"
-        android:backgroundTint="@color/eco_green_dark"
-        android:layout_marginTop="20dp"
-        android:textSize="15sp"
-        android:padding="15dp"
-        android:onClick="loginUser"
-        style="@style/Widget.MaterialComponents.Button"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nouveau sur PowerHome?"
-            android:textColor="@color/eco_green_medium"
-            android:textSize="16sp"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CRÉER UN COMPTE"
-            android:background="@android:color/transparent"
-            android:textColor="@color/eco_green_dark"
-            android:textSize="16sp"
-            android:padding="0dp"
-            android:layout_marginLeft="10dp"
-            android:onClick="clickNewAccount"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp">
+            <LinearLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:orientation="horizontal"
+                android:background="@color/eco_green_dark"
+                android:gravity="center_vertical"
+                android:weightSum="1"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Ligne gauche -->
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/eco_green_medium"/>
+                <!-- Texte "Connectez-vous" -->
+                <TextView
+                    android:id="@+id/text_connect"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Connexion"
+                    android:textColor="@color/eco_beige"
+                    android:textSize="18sp"
+                    android:layout_marginStart="22dp"
+                    android:layout_weight="1"/>
 
-        <!-- Texte "OU" -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OU"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:textColor="@color/eco_green_medium"
-            android:textSize="14sp"/>
+            </LinearLayout>
 
-        <!-- Ligne droite -->
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/eco_green_medium"/>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="20dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="4dp"
-            android:src="@drawable/facebook_logo"
-            />
-        <Button
-            android:id="@+id/btnFacebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Continuer avec Facebook"
-            android:background="@android:color/transparent"
-            android:textColor="@color/blue"
-            android:padding="0dp"
-            android:onClick="clickFacebook"
-            />
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Identifiez-vous"
+                    android:textSize="22sp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_gravity="start"
+                    android:textColor="@color/eco_green_dark"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_mail_outline_24"
+                        app:tint="@color/eco_green_dark"/>
+
+                    <EditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email"
+                        android:textColor="@color/eco_green_dark"
+                        android:textColorHint="@color/eco_green_medium"
+                        android:inputType="textEmailAddress"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_lock_open_24"
+                        app:tint="@color/eco_green_dark"/>
+
+                    <EditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Mot de passe"
+                        android:textColor="@color/eco_green_dark"
+                        android:textColorHint="@color/eco_green_medium"
+                        android:inputType="textPassword"/>
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MOT DE PASSE OUBLIÉ ?"
+                    android:background="@android:color/transparent"
+                    android:textSize="18sp"
+                    android:padding="0dp"
+                    android:textColor="@color/eco_green_dark"
+                    android:layout_gravity="end"
+                    android:onClick="clickForgottenPassWord"/>
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CONNECTEZ-VOUS"
+                    android:textColor="@color/eco_beige"
+                    android:backgroundTint="@color/eco_green_dark"
+                    android:layout_marginTop="20dp"
+                    android:textSize="15sp"
+                    android:padding="15dp"
+                    android:onClick="loginUser"
+                    style="@style/Widget.MaterialComponents.Button"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nouveau sur PowerHome?"
+                        android:textColor="@color/eco_green_medium"
+                        android:textSize="16sp"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CRÉER UN COMPTE"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/eco_green_dark"
+                        android:textSize="16sp"
+                        android:padding="0dp"
+                        android:layout_marginLeft="10dp"
+                        android:onClick="clickNewAccount"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Ligne gauche -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/eco_green_medium"/>
+
+                    <!-- Texte "OU" -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="OU"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:textColor="@color/eco_green_medium"
+                        android:textSize="14sp"/>
+
+                    <!-- Ligne droite -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/eco_green_medium"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/facebook_logo"/>
+
+                    <Button
+                        android:id="@+id/btnFacebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Continuer avec Facebook"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/blue"
+                        android:padding="0dp"
+                        android:onClick="clickFacebook"/>
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logo_plante"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>
-</LinearLayout>
-
